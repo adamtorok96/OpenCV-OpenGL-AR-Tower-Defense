@@ -6,7 +6,7 @@ Detector::Detector(unsigned int dictionaryId) {
     detectorParams = aruco::DetectorParameters::create();
 }
 
-Detector& Detector::setCameraParameter(Mat &camMatrix, Mat &distCoeffs) {
+Detector& Detector::setCameraParameter(const Mat &camMatrix, const Mat &distCoeffs) {
     this->camMatrix = camMatrix;
     this->distCoeffs = distCoeffs;
 
@@ -19,7 +19,7 @@ Detector& Detector::setMarkerLength(float length) {
     return *this;
 }
 
-tuple<vector<int>, vector<Vec3d>, vector<Vec3d>> Detector::detect(Mat &frame) {
+tuple<vector<int>, vector<Vec3d>, vector<Vec3d>> Detector::detect(const Mat &frame) {
     vector<int> ids;
     vector<vector<Point2f>> corners;
     vector<Vec3d> rvecs, tvecs;
@@ -32,7 +32,7 @@ tuple<vector<int>, vector<Vec3d>, vector<Vec3d>> Detector::detect(Mat &frame) {
     return make_tuple(ids, rvecs, tvecs);
 }
 
-Mat Detector::getModelViewMatrix(Vec3d &rvec, Vec3d &tvec) {
+Mat Detector::getModelViewMatrix(const Vec3d &rvec, const Vec3d &tvec) {
     Mat rotation = Mat::zeros(4, 4, CV_64FC1);
     Mat viewMatrix = Mat::zeros(4, 4, CV_64FC1);
 
@@ -59,7 +59,7 @@ Mat Detector::getModelViewMatrix(Vec3d &rvec, Vec3d &tvec) {
     return (cvToGl * viewMatrix).t();
 }
 
-Mat Detector::vec3dToMat(Vec3d &vec) {
+Mat Detector::vec3dToMat(const Vec3d &vec) {
     cv::Mat mat(3,1, CV_64FC1);
 
     mat.at<double>(0,0) = vec[0];
