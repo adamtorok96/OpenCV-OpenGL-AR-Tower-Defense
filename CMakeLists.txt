@@ -21,6 +21,6 @@ include_directories(${GLEW_INCLUDE_DIR})
 include_directories(${GLUT_INCLUDE_DIR})
 include_directories(${OpenCV_INCLUDE_DIRS})
 
-add_executable(OpenCV_OpenGL_AR_TowerDefense main.cpp TowerDefense.cpp TowerDefense.h Detector.cpp Detector.h FrameHandler.cpp FrameHandler.h)
+add_executable(OpenCV_OpenGL_AR_TowerDefense main.cpp TowerDefense.cpp TowerDefense.h Detector.cpp Detector.h FrameHandler.cpp FrameHandler.h GameObject.cpp GameObject.h)
 
-target_link_libraries(OpenCV_OpenGL_AR_TowerDefense ${OpenCV_LIBS} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${GLUT_LIBRARIES} GL)
+target_link_libraries(OpenCV_OpenGL_AR_TowerDefense ${OpenCV_LIBS} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${GLUT_LIBRARIES} GL tinyobjloader)
