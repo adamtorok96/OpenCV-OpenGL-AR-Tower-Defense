@@ -14,7 +14,7 @@ public:
     Path * getNext();
     bool hasNext();
 
-    void process() override;
+    void process(unsigned int deltaTime) override;
 };
 
 

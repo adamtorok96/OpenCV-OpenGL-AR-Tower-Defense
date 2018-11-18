@@ -7,13 +7,18 @@ void TowerDefense::init() {
     arucoModelMapper = ArucoModelMapper::getInstance();
 }
 
-void TowerDefense::draw(const Detector * detector, const vector<int> & ids, const vector <Vec3d> & rvecs, const vector <Vec3d> & tvecs) {
+void TowerDefense::draw(
+        const Detector * detector,
+        unsigned int deltaTime,
+        const vector<int> & ids,
+        const vector <Vec3d> & rvecs,
+        const vector <Vec3d> & tvecs) {
     for(auto i = 0; i < ids.size(); i++) {
         updateObjectPosition(detector, ids[i], rvecs[i], tvecs[i]);
     }
 
     for(auto gameObject : arucoModelMapper->getGameObjects()) {
-        gameObject.second->process();
+        gameObject.second->process(deltaTime);
     }
 
     for(auto gameObject : arucoModelMapper->getGameModels()) {

@@ -27,12 +27,13 @@ class FrameHandler {
 
     VideoCapture videoCapture;
     Detector * detector;
+    TowerDefense * towerDefense;
 
     unsigned int width, height;
 
     GLdouble fovy, aspect;
 
-    TowerDefense * towerDefense;
+    int time;
 
     struct DrawData
     {
@@ -46,7 +47,7 @@ class FrameHandler {
 
     void draw();
     void drawBackground(Mat & frame);
-    void drawObjects(Mat & frame);
+    void drawObjects(Mat & frame, unsigned int deltaTima);
 public:
     FrameHandler();
     ~FrameHandler();

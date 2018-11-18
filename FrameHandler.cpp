@@ -99,6 +99,8 @@ void FrameHandler::initBackground() {
 }
 
 void FrameHandler::run() {
+    time = 0;
+
     while( true ) {
         updateWindow(WINDOW_NAME);
 
@@ -116,6 +118,12 @@ void FrameHandler::staticDraw(void * data) {
 }
 
 void FrameHandler::draw() {
+    int elapsedTime = glutGet(GLUT_ELAPSED_TIME);
+    auto deltaTime = (unsigned int)(elapsedTime - time);
+    time = elapsedTime;
+
+    std::cout << "dt: " << deltaTime << endl;
+
     Mat frame;
 
     videoCapture >> frame;
@@ -123,7 +131,7 @@ void FrameHandler::draw() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     drawBackground(frame);
-    drawObjects(frame);
+    drawObjects(frame, deltaTime);
 }
 
 void FrameHandler::drawBackground(Mat &frame) {
@@ -142,7 +150,7 @@ void FrameHandler::drawBackground(Mat &frame) {
     glPopMatrix();
 }
 
-void FrameHandler::drawObjects(Mat &frame) {
+void FrameHandler::drawObjects(Mat &frame, unsigned int deltaTime) {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluPerspective(fovy, aspect, zNear, zFar);
@@ -152,5 +160,5 @@ void FrameHandler::drawObjects(Mat &frame) {
 
     tie(ids, rvecs, tvecs) = detector->detect(frame);
 
-    towerDefense->draw(detector, ids, rvecs, tvecs);
+    towerDefense->draw(detector, deltaTime, ids, rvecs, tvecs);
 }

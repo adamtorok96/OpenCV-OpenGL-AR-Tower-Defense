@@ -38,6 +38,7 @@ void ArucoModelMapper::addPath(int id, Path * path) {
 void ArucoModelMapper::load() {
     instance = new ArucoModelMapper;
 
+    std::cout << "here" << endl;
     ifstream ifs("assets/aruco_object_mapping.json");
     json j;
 

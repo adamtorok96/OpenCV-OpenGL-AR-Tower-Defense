@@ -6,6 +6,8 @@
 class StartPath : public Path {
 public:
     StartPath() : Path{} {}
+
+    void process(unsigned int deltaTime) override;
 };
 
 

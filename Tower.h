@@ -8,7 +8,7 @@ class Tower : public GameModel {
 public:
     explicit Tower(GLuint model) : GameModel(model) {}
 
-    void process() override;
+    void process(unsigned int deltaTime) override;
 };
 
 

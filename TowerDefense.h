@@ -12,7 +12,7 @@ public:
     ~TowerDefense();
 
     void init();
-    void draw(const Detector * detector, const vector<int> & ids, const vector <Vec3d> & rvecs, const vector <Vec3d> & tvecs);
+    void draw(const Detector * detector, unsigned int deltaTime, const vector<int> & ids, const vector <Vec3d> & rvecs, const vector <Vec3d> & tvecs);
 };
 
 

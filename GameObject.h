@@ -18,7 +18,7 @@ public:
     void setPosition(const Detector * detector, const Vec3d & rvec, const Vec3d & tvec);
     double getDistance(const GameObject & gameObject);
 
-    virtual void process() = 0;
+    virtual void process(unsigned int deltaTime) = 0;
 };
 
 

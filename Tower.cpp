@@ -1,5 +1,5 @@
 #include "Tower.h"
 
-void Tower::process() {
+void Tower::process(unsigned int deltaTime) {
 
 }

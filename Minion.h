@@ -7,7 +7,7 @@ class Minion : public GameModel {
 public:
     explicit Minion(GLuint id) : GameModel{id} {}
 
-    void process() override;
+    void process(unsigned int deltaTime) override;
 };
 
 

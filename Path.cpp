@@ -1,6 +1,6 @@
 #include "Path.h"
 
-void Path::process() {
+void Path::process(unsigned int deltaTime) {
 
 }
 
