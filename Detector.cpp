@@ -32,7 +32,7 @@ tuple<vector<int>, vector<Vec3d>, vector<Vec3d>> Detector::detect(const Mat &fra
     return make_tuple(ids, rvecs, tvecs);
 }
 
-Mat Detector::getModelViewMatrix(const Vec3d &rvec, const Vec3d &tvec) {
+Mat Detector::getModelViewMatrix(const Vec3d &rvec, const Vec3d &tvec) const {
     Mat rotation = Mat::zeros(4, 4, CV_64FC1);
     Mat viewMatrix = Mat::zeros(4, 4, CV_64FC1);
 

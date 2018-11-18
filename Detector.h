@@ -25,7 +25,7 @@ public:
     Detector& setMarkerLength(float length);
 
     tuple<vector<int>, vector<Vec3d>, vector<Vec3d>> detect(const Mat & frame);
-    Mat getModelViewMatrix(const Vec3d & rvec, const Vec3d & tvec);
+    Mat getModelViewMatrix(const Vec3d & rvec, const Vec3d & tvec) const;
 };
 
 
