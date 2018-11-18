@@ -23,3 +23,7 @@ void GameObjectLoader::load() {
        );
    }
 }
+
+GLuint GameObjectLoader::getModelByName(const string &name) {
+    return models[name];
+}

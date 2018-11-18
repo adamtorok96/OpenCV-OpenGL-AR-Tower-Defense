@@ -21,6 +21,8 @@ class GameObjectLoader {
 public:
     static void load();
     static GameObjectLoader * getInstance();
+
+    GLuint getModelByName(const string & name);
 };
 
 
