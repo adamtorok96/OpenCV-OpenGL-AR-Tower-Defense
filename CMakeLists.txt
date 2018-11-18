@@ -25,6 +25,31 @@ include_directories(${GLEW_INCLUDE_DIR})
 include_directories(${GLUT_INCLUDE_DIR})
 include_directories(${OpenCV_INCLUDE_DIRS})
 
-add_executable(OpenCV_OpenGL_AR_TowerDefense main.cpp TowerDefense.cpp TowerDefense.h Detector.cpp Detector.h FrameHandler.cpp FrameHandler.h GameObject.cpp GameObject.h)
+set(SOURCE_FILES
+        main.cpp
+        TowerDefense.cpp TowerDefense.h
+        Detector.cpp Detector.h
+        FrameHandler.cpp FrameHandler.h
+        GameObject.cpp GameObject.h
+        GameModelLoader.cpp GameModelLoader.h
+        ArucoObjectMapper.cpp ArucoObjectMapper.h
+        Tower.cpp Tower.h
+        Minion.cpp Minion.h
+        GameModel.cpp GameModel.h
+        Path.cpp Path.h
+        StartPath.cpp StartPath.h
+)
 
-target_link_libraries(OpenCV_OpenGL_AR_TowerDefense ${OpenCV_LIBS} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${GLUT_LIBRARIES} GL tinyobjloader nlohmann_json::nlohmann_json)
+set(LIB_FILES
+        ${OpenCV_LIBS}
+        ${OPENGL_LIBRARIES}
+        ${GLEW_LIBRARIES}
+        ${GLUT_LIBRARIES}
+        GL
+        tinyobjloader
+        nlohmann_json::nlohmann_json
+)
+
+add_executable(OpenCV_OpenGL_AR_TowerDefense ${SOURCE_FILES})
+
+target_link_libraries(OpenCV_OpenGL_AR_TowerDefense ${LIB_FILES})
