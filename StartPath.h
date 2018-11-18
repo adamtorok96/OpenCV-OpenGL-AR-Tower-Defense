@@ -4,7 +4,8 @@
 #include "Path.h"
 
 class StartPath : public Path {
-
+public:
+    StartPath() : Path{} {}
 };
 
 

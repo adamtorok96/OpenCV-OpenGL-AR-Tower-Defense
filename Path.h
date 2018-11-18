@@ -4,7 +4,7 @@
 
 #include "GameObject.h"
 
-class Path : GameObject {
+class Path : public GameObject {
     Path * next;
 
 public:
