@@ -21,14 +21,14 @@ void GameObject::draw() {
     glCallList(modelId);
 }
 
-GLuint GameObject::load(const string filename) {
+GLuint GameObject::load(const string & filename, Vec3d translate, Vec3d rotate, Vec3d scale) {
     tinyobj::attrib_t attrib;
     vector<tinyobj::shape_t> shapes;
     vector<tinyobj::material_t> materials;
 
-    std::string warn_err;
+    std::string err, warn;
 
-    bool ret = tinyobj::LoadObj(&attrib, &shapes, &materials, &warn_err, &warn_err, filename.c_str());
+    bool ret = tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, filename.c_str());
 
     if( !ret) {
         return 0;
@@ -38,9 +38,21 @@ GLuint GameObject::load(const string filename) {
     bool hasTextureCoordinates = !attrib.texcoords.empty();
     bool hasColors = !attrib.colors.empty();
 
+    tinyobj::real_t
+        vx, vy, vz,
+        nx, ny, nz,
+        tx, ty,
+        red, green, blue;
+
     GLuint modelId = glGenLists(1);
 
     glNewList(modelId, GL_COMPILE);
+
+    glDisable(GL_TEXTURE_2D);
+
+    glTranslated(translate[0], translate[1], translate[2]);
+    glRotated(1.0f, rotate[0], rotate[1], rotate[2]);
+    glScaled(scale[0], scale[1], scale[2]);
 
     for (auto &shape : shapes) {
         size_t index_offset = 0;
@@ -53,28 +65,32 @@ GLuint GameObject::load(const string filename) {
             for (size_t v = 0; v < fv; v++) {
                 tinyobj::index_t idx = shape.mesh.indices[index_offset + v];
 
-                tinyobj::real_t vx = attrib.vertices[3 * idx.vertex_index + 0];
-                tinyobj::real_t vy = attrib.vertices[3 * idx.vertex_index + 1];
-                tinyobj::real_t vz = attrib.vertices[3 * idx.vertex_index + 2];
-                tinyobj::real_t nx = attrib.normals[3 * idx.normal_index + 0];
-                tinyobj::real_t ny = attrib.normals[3 * idx.normal_index + 1];
-                tinyobj::real_t nz = attrib.normals[3 * idx.normal_index + 2];
+                if( hasNormals ) {
+                    nx = attrib.normals[3 * idx.normal_index + 0];
+                    ny = attrib.normals[3 * idx.normal_index + 1];
+                    nz = attrib.normals[3 * idx.normal_index + 2];
 
-                tinyobj::real_t tx = attrib.texcoords[2 * idx.texcoord_index + 0];
-                tinyobj::real_t ty = attrib.texcoords[2 * idx.texcoord_index + 1];
-
-                tinyobj::real_t red = attrib.colors[3 * idx.vertex_index + 0];
-                tinyobj::real_t green = attrib.colors[3 * idx.vertex_index + 1];
-                tinyobj::real_t blue = attrib.colors[3 * idx.vertex_index + 2];
-
-                if( hasColors )
-                    glColor3f(red, green, blue);
-
-                if( hasTextureCoordinates )
-                    glTexCoord2f(tx, ty);
-
-                if( hasNormals )
                     glNormal3f(nx, ny, nz);
+                }
+
+                if( hasTextureCoordinates ) {
+                    tx = attrib.texcoords[2 * idx.texcoord_index + 0];
+                    ty = attrib.texcoords[2 * idx.texcoord_index + 1];
+
+                    glTexCoord2f(tx, ty);
+                }
+
+                if( hasColors ) {
+                    red = attrib.colors[3 * idx.vertex_index + 0];
+                    green = attrib.colors[3 * idx.vertex_index + 1];
+                    blue = attrib.colors[3 * idx.vertex_index + 2];
+
+                    glColor3f(red, green, blue);
+                }
+
+                vx = attrib.vertices[3 * idx.vertex_index + 0];
+                vy = attrib.vertices[3 * idx.vertex_index + 1];
+                vz = attrib.vertices[3 * idx.vertex_index + 2];
 
                 glVertex3f(vx, vy, vz);
             }

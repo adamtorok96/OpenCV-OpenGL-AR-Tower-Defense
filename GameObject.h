@@ -1,6 +1,8 @@
 #ifndef OPENCV_OPENGL_AR_TOWERDEFENSE_GAMEOBJECT_H
 #define OPENCV_OPENGL_AR_TOWERDEFENSE_GAMEOBJECT_H
 
+#include <iostream>
+
 #include <opencv2/core.hpp>
 
 #include <GL/gl.h>
@@ -9,6 +11,7 @@
 
 #include "Detector.h"
 
+using namespace std;
 using namespace cv;
 
 class GameObject {
@@ -18,7 +21,7 @@ class GameObject {
     Vec3d rvec, tvec;
 
 public:
-    static GLuint load(string filename);
+    static GLuint load(const string & filename, Vec3d translate, Vec3d rotate, Vec3d scale);
 
     GameObject(GLuint modelId);
     ~GameObject();
