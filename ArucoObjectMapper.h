@@ -10,25 +10,34 @@
 #include "Tower.h"
 #include "Minion.h"
 
+#include "StartPath.h"
+
 using namespace std;
 using json = nlohmann::json;
 
 class ArucoModelMapper {
     static ArucoModelMapper * instance;
 
-    map<int, GameObject*> gameModels;
+    map<int, GameObject*> gameObjects;
+    map<int, GameModel*> gameModels;
+    vector<Path *> pathes;
 
     ArucoModelMapper();
     ~ArucoModelMapper();
 
+    void addGameObject(int id, GameObject * gameObject);
+    void addGameModel(int id, GameModel * gameModel);
+    void addPath(int id, Path * path);
 public:
     static ArucoModelMapper * getInstance();
     static void load();
 
-    GameModel * getGameModelById(int id);
-    bool hasModelById(int id);
+    GameObject * getGameObjectById(int id);
+    bool hasGameObjectId(int id);
 
-    map<int, GameObject*> & getGameModels();
+    map<int, GameObject*> & getGameObjects();
+    map<int, GameModel*> & getGameModels();
+    vector<Path*> & getPathes();
 };
 
 
