@@ -1,0 +1,20 @@
+%YAML:1.0
+---
+calibration_time: "2018. okt. 21., vasárnap, 20:49:51 CEST"
+image_width: 640
+image_height: 480
+flags: 0
+camera_matrix: !!opencv-matrix
+   rows: 3
+   cols: 3
+   dt: d
+   data: [ 8.2461124239952437e+02, 0., 2.7648918732730812e+02, 0.,
+       8.2260772050202149e+02, 1.4762574894206693e+02, 0., 0., 1. ]
+distortion_coefficients: !!opencv-matrix
+   rows: 1
+   cols: 5
+   dt: d
+   data: [ 4.9769423874430632e-02, -5.4014467134132993e-01,
+       3.2247388389163500e-04, -3.7704210741977247e-03,
+       1.4355617763934061e+00 ]
+avg_reprojection_error: 2.8834426222118320e-01
