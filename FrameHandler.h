@@ -12,6 +12,7 @@
 #include <opencv2/core/opengl.hpp>
 
 #include "Detector.h"
+#include "TowerDefense.h"
 
 using namespace std;
 using namespace cv;
@@ -31,6 +32,8 @@ class FrameHandler {
 
     GLdouble fovy, aspect;
 
+    TowerDefense * towerDefense;
+
     struct DrawData
     {
         ogl::Arrays arrays;
@@ -44,7 +47,6 @@ class FrameHandler {
     void draw();
     void drawBackground(Mat & frame);
     void drawObjects(Mat & frame);
-    void drawObject(int id, Vec3d & rvec, Vec3d & tvec);
 public:
     FrameHandler();
     ~FrameHandler();

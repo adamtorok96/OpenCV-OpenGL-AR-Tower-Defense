@@ -1,5 +1,6 @@
 #include "FrameHandler.h"
 
+
 FrameHandler::FrameHandler() {
     detector = new Detector(0);
 }
@@ -53,18 +54,21 @@ void FrameHandler::readCameraParameters(const string &filename) {
 void FrameHandler::init(int *argc, char **argv) {
     initOpenGL(argc, argv);
     initBackground();
+
+    towerDefense = new TowerDefense;
+    towerDefense->init();
 }
 
 void FrameHandler::initOpenGL(int * argc, char * argv[]) {
     namedWindow(WINDOW_NAME, WINDOW_OPENGL);
     resizeWindow(WINDOW_NAME, width, height);
 
-//    glDisable(GL_CULL_FACE);
+    glDisable(GL_CULL_FACE);
 
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClearDepth(1.0f);
 
-    glViewport(0, 0, height, width);
+    glViewport(0, 0, width, height);
 
     glutInit(argc, argv);
 
@@ -131,6 +135,8 @@ void FrameHandler::drawBackground(Mat &frame) {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
+    glEnable(GL_TEXTURE_2D);
+
     glPushMatrix();
         ogl::render(backgroundData->arrays, backgroundData->buffer, ogl::TRIANGLES);
     glPopMatrix();
@@ -146,19 +152,5 @@ void FrameHandler::drawObjects(Mat &frame) {
 
     tie(ids, rvecs, tvecs) = detector->detect(frame);
 
-    for(unsigned int i = 0; i < ids.size(); i++) {
-        drawObject(ids[i], rvecs[i], tvecs[i]);
-    }
-}
-
-void FrameHandler::drawObject(int id, Vec3d &rvec, Vec3d &tvec) {
-    Mat modelViewMatrix = detector->getModelViewMatrix(rvec, tvec);
-
-    glMatrixMode(GL_MODELVIEW);
-    glLoadMatrixd(&modelViewMatrix.at<double>(0, 0));
-
-    glPushMatrix();
-        glColor4f(1.0f, 0.0f, 0.0f, 0.0f);
-        glutSolidSphere(0.01f, 20, 20);
-    glPopMatrix();
+    towerDefense->draw(detector, ids, rvecs, tvecs);
 }
