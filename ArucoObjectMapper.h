@@ -5,9 +5,10 @@
 
 #include <nlohmann/json.hpp>
 
-#include "GameObjectLoader.h"
+#include "GameModelLoader.h"
 #include "GameObject.h"
 #include "Tower.h"
+#include "Minion.h"
 
 using namespace std;
 using json = nlohmann::json;
@@ -15,10 +16,19 @@ using json = nlohmann::json;
 class ArucoModelMapper {
     static ArucoModelMapper * instance;
 
-    map<int, GameObject*> gameObjects;
+    map<int, GameObject*> gameModels;
+
+    ArucoModelMapper();
+    ~ArucoModelMapper();
 
 public:
+    static ArucoModelMapper * getInstance();
     static void load();
+
+    GameModel * getGameModelById(int id);
+    bool hasModelById(int id);
+
+    map<int, GameObject*> & getGameModels();
 };
 
 

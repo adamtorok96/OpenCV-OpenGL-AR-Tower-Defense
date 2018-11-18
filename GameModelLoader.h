@@ -7,20 +7,20 @@
 
 #include <nlohmann/json.hpp>
 
-#include "GameObject.h"
+#include "GameModel.h"
 
 using namespace std;
 using json = nlohmann::json;
 
-class GameObjectLoader {
+class GameModelLoader {
 
-    static GameObjectLoader * instance;
+    static GameModelLoader * instance;
 
     map<string, GLuint> models;
 
 public:
     static void load();
-    static GameObjectLoader * getInstance();
+    static GameModelLoader * getInstance();
 
     GLuint getModelByName(const string & name);
 };
