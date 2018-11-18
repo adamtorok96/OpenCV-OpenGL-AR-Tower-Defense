@@ -1,6 +1,8 @@
 #ifndef OPENCV_OPENGL_AR_TOWERDEFENSE_GAMEOBJECT_H
 #define OPENCV_OPENGL_AR_TOWERDEFENSE_GAMEOBJECT_H
 
+#include <cmath>
+
 #include "Detector.h"
 
 using namespace std;
@@ -14,6 +16,7 @@ protected:
 
 public:
     void setPosition(Detector * detector, const Vec3d & rvec, const Vec3d & tvec);
+    double getDistance(const GameObject & gameObject);
 
     virtual void process() = 0;
 };
