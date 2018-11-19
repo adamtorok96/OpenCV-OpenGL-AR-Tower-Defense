@@ -11,7 +11,7 @@
       "name": "minion",
       "path": "assets/models/minion.obj",
       "translate": [0, 0, 0],
-      "rotate": [0, 0, 0],
+      "rotate": [90, 0, 0],
       "scale": [0.001, 0.001, 0.001],
       "color": [0, 1, 0]
     }
