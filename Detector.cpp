@@ -1,6 +1,16 @@
 #include <tuple>
 #include "Detector.h"
 
+Detector * Detector::instance = nullptr;
+
+Detector *Detector::getInstance() {
+    if( instance == nullptr ) {
+        instance = new Detector;
+    }
+
+    return instance;
+}
+
 Detector::Detector(unsigned int dictionaryId) {
     dictionary = aruco::getPredefinedDictionary(aruco::PREDEFINED_DICTIONARY_NAME(dictionaryId));
     detectorParams = aruco::DetectorParameters::create();
@@ -69,4 +79,13 @@ Mat Detector::vec3dToMat(const Vec3d &vec) {
     return mat;
 }
 
+void Detector::drawDetectedMarkers(const Mat & frame) {
+    vector<int> ids;
+    vector<vector<Point2f>> corners;
+    vector<Vec3d> rvecs, tvecs;
 
+    aruco::detectMarkers(frame, dictionary, corners, ids, detectorParams);
+
+    if( !ids.empty() )
+        aruco::drawDetectedMarkers(frame, corners, ids);
+}
