@@ -2,32 +2,32 @@
 
 void TowerDefense::init() {
     GameModelLoader::load();
-    ArucoModelMapper::load();
+    ArucoObjectMapper::load();
 
-    arucoModelMapper = ArucoModelMapper::getInstance();
+    arucoObjectMapper = ArucoObjectMapper::getInstance();
 }
 
 void TowerDefense::draw(
-        const Detector * detector,
         unsigned int deltaTime,
         const vector<int> & ids,
         const vector <Vec3d> & rvecs,
         const vector <Vec3d> & tvecs) {
     for(auto i = 0; i < ids.size(); i++) {
-        updateObjectPosition(detector, ids[i], rvecs[i], tvecs[i]);
+        updateObjectPosition(ids[i], rvecs[i], tvecs[i]);
     }
 
-    for(auto gameObject : arucoModelMapper->getGameObjects()) {
+    for(auto gameObject : arucoObjectMapper->getGameObjects()) {
         gameObject.second->process(deltaTime);
     }
 
-    for(auto gameObject : arucoModelMapper->getGameModels()) {
+    for(auto gameObject : arucoObjectMapper->getGameModels()) {
         gameObject.second->draw();
     }
 }
 
-void TowerDefense::updateObjectPosition(const Detector * detector, int id, const Vec3d &rvec, const Vec3d &tvec) {
-    if( arucoModelMapper->hasGameObjectId(id) ) {
-        arucoModelMapper->getGameObjectById(id)->setPosition(detector, rvec, tvec);
+void TowerDefense::updateObjectPosition(int id, const Vec3d &rvec, const Vec3d &tvec) {
+    if( arucoObjectMapper->hasGameObjectId(id) ) {
+        cout << "found: " << id << endl;
+        arucoObjectMapper->getGameObjectById(id)->setPosition(rvec, tvec);
     }
 }

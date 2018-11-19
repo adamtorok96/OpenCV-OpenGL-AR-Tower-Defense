@@ -5,14 +5,14 @@
 #include "ArucoObjectMapper.h"
 
 class TowerDefense {
-    ArucoModelMapper * arucoModelMapper;
+    ArucoObjectMapper * arucoObjectMapper;
 
-    void updateObjectPosition(const Detector * detector, int id, const Vec3d & rvec, const Vec3d & tvec);
+    void updateObjectPosition(int id, const Vec3d & rvec, const Vec3d & tvec);
 public:
     ~TowerDefense();
 
     void init();
-    void draw(const Detector * detector, unsigned int deltaTime, const vector<int> & ids, const vector <Vec3d> & rvecs, const vector <Vec3d> & tvecs);
+    void draw(unsigned int deltaTime, const vector<int> & ids, const vector <Vec3d> & rvecs, const vector <Vec3d> & tvecs);
 };
 
 
