@@ -48,6 +48,8 @@ class FrameHandler {
     void draw();
     void drawBackground(Mat & frame);
     void drawObjects(Mat & frame, unsigned int deltaTima);
+
+    unsigned int getDeltaTime();
 public:
     FrameHandler();
     ~FrameHandler();
@@ -57,6 +59,5 @@ public:
     void init(int * argc, char * argv[]);
     void run();
 };
-
 
 #endif

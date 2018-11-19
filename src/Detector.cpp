@@ -1,4 +1,3 @@
-#include <tuple>
 #include "Detector.h"
 
 Detector * Detector::instance = nullptr;

@@ -9,8 +9,13 @@ GameModel::~GameModel() {
 }
 
 void GameModel::draw() {
+    if( !initialized )
+        return;
+
     glMatrixMode(GL_MODELVIEW);
     glLoadMatrixd(&modelViewMatrix.at<double>(0, 0));
+
+//    glTranslated(position[0], position[1], position[2]);
 
     glCallList(modelId);
 }

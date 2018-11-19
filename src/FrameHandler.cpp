@@ -1,8 +1,7 @@
 #include "FrameHandler.h"
 
-
 FrameHandler::FrameHandler() {
-    detector = new Detector(0);
+    detector = Detector::getInstance();
 }
 
 FrameHandler::~FrameHandler() {
@@ -118,20 +117,27 @@ void FrameHandler::staticDraw(void * data) {
 }
 
 void FrameHandler::draw() {
-    int elapsedTime = glutGet(GLUT_ELAPSED_TIME);
-    auto deltaTime = (unsigned int)(elapsedTime - time);
-    time = elapsedTime;
-
-    std::cout << "dt: " << deltaTime << endl;
+    auto deltaTime = getDeltaTime();
 
     Mat frame;
 
     videoCapture >> frame;
 
+    // DEBUG
+    //detector->drawDetectedMarkers(frame);
+
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     drawBackground(frame);
     drawObjects(frame, deltaTime);
+}
+
+unsigned int FrameHandler::getDeltaTime() {
+    int elapsedTime = glutGet(GLUT_ELAPSED_TIME);
+    auto deltaTime = (unsigned int)(elapsedTime - time);
+    time = elapsedTime;
+
+    return deltaTime;
 }
 
 void FrameHandler::drawBackground(Mat &frame) {
@@ -160,5 +166,5 @@ void FrameHandler::drawObjects(Mat &frame, unsigned int deltaTime) {
 
     tie(ids, rvecs, tvecs) = detector->detect(frame);
 
-    towerDefense->draw(detector, deltaTime, ids, rvecs, tvecs);
+    towerDefense->draw(deltaTime, ids, rvecs, tvecs);
 }

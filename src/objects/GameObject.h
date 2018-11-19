@@ -3,7 +3,7 @@
 
 #include <cmath>
 
-#include "Detector.h"
+#include "../Detector.h"
 
 using namespace std;
 using namespace cv;
@@ -14,9 +14,18 @@ protected:
     Mat modelViewMatrix;
     Vec3d rvec, tvec;
 
+    bool initialized;
+
 public:
-    void setPosition(const Detector * detector, const Vec3d & rvec, const Vec3d & tvec);
-    double getDistance(const GameObject & gameObject);
+    GameObject() : initialized{false} {};
+
+    void setPosition(const Vec3d & tvec);
+    void setPosition(const Vec3d & rvec, const Vec3d & tvec);
+    void setPosition(GameObject * gameObject);
+
+    Vec3d getPosition() const;
+
+    double getDistance(const GameObject & gameObject) const;
 
     virtual void process(unsigned int deltaTime) = 0;
 };

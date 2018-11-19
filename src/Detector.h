@@ -1,6 +1,8 @@
 #ifndef OPENCV_OPENGL_AR_TOWERDEFENSE_DETECTOR_H
 #define OPENCV_OPENGL_AR_TOWERDEFENSE_DETECTOR_H
 
+#include <tuple>
+
 #include <opencv2/core.hpp>
 #include <opencv2/aruco.hpp>
 #include <opencv2/calib3d.hpp>
@@ -32,6 +34,5 @@ public:
 
     Mat getModelViewMatrix(const Vec3d & rvec, const Vec3d & tvec) const;
 };
-
 
 #endif

@@ -26,18 +26,18 @@ include_directories(${GLUT_INCLUDE_DIR})
 include_directories(${OpenCV_INCLUDE_DIRS})
 
 set(SOURCE_FILES
-        main.cpp
-        TowerDefense.cpp TowerDefense.h
-        Detector.cpp Detector.h
-        FrameHandler.cpp FrameHandler.h
-        GameObject.cpp GameObject.h
-        GameModelLoader.cpp GameModelLoader.h
-        ArucoObjectMapper.cpp ArucoObjectMapper.h
-        Tower.cpp Tower.h
-        Minion.cpp Minion.h
-        GameModel.cpp GameModel.h
-        Path.cpp Path.h
-        StartPath.cpp StartPath.h
+        src/main.cpp
+        src/TowerDefense.cpp src/TowerDefense.h
+        src/Detector.cpp src/Detector.h
+        src/FrameHandler.cpp src/FrameHandler.h
+        src/objects/GameObject.cpp src/objects/GameObject.h
+        src/GameModelLoader.cpp src/GameModelLoader.h
+        src/ArucoObjectMapper.cpp src/ArucoObjectMapper.h
+        src/objects/Tower.cpp src/objects/Tower.h
+        src/objects/Minion.cpp src/objects/Minion.h
+        src/objects/GameModel.cpp src/objects/GameModel.h
+        src/objects/Path.cpp src/objects/Path.h
+        src/objects/StartPath.cpp src/objects/StartPath.h
 )
 
 set(LIB_FILES

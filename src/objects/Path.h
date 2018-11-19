@@ -1,7 +1,6 @@
 #ifndef OPENCV_OPENGL_AR_TOWERDEFENSE_PATH_H
 #define OPENCV_OPENGL_AR_TOWERDEFENSE_PATH_H
 
-
 #include "GameObject.h"
 
 class Path : public GameObject {

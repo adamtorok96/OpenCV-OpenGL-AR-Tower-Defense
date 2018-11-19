@@ -7,7 +7,7 @@
 
 #include <nlohmann/json.hpp>
 
-#include "GameModel.h"
+#include "objects/GameModel.h"
 
 using namespace std;
 using json = nlohmann::json;
