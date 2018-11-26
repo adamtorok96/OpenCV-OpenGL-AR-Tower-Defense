@@ -103,7 +103,7 @@ void FrameHandler::run() {
     while( true ) {
         updateWindow(WINDOW_NAME);
 
-        auto key = (char)waitKey(40);
+        auto key = (char)waitKey(20);
 
         if( key == 27 )
             break;

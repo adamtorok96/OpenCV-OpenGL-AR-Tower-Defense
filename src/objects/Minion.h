@@ -5,7 +5,7 @@
 #include "Path.h"
 
 class Minion : public GameModel {
-    static constexpr GLdouble speed = 0.00001;
+    static constexpr GLdouble speed = 0.00002;
 
     Path * nextPath;
 

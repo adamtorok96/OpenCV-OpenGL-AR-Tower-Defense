@@ -21,7 +21,7 @@ public:
     explicit GameModel(GLuint modelId);
     ~GameModel();
 
-    void draw();
+    virtual void draw();
 };
 
 

@@ -17,19 +17,17 @@ void TowerDefense::draw(
         updateObjectPosition(ids[i], rvecs[i], tvecs[i]);
     }
 
-    for(auto gameObject : arucoObjectMapper->getGameObjects()) {
-        gameObject.second->process(deltaTime);
+    for(auto gameObject : arucoObjectMapper->getProcessables()) {
+        gameObject->process(deltaTime);
     }
 
-    for(auto gameObject : arucoObjectMapper->getGameModels()) {
-        gameObject.second->draw();
+    for(auto gameModel : arucoObjectMapper->getDrawables()) {
+        gameModel->draw();
     }
 }
 
 void TowerDefense::updateObjectPosition(int id, const Vec3d &rvec, const Vec3d &tvec) {
-    if( arucoObjectMapper->hasGameObjectId(id) ) {
-        arucoObjectMapper->getGameObjectById(id)->setPosition(rvec, tvec);
-    }
+    arucoObjectMapper->updatePositionIfExists(id, rvec, tvec);
 }
 
 TowerDefense::~TowerDefense() {

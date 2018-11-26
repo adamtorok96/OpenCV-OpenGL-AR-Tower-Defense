@@ -38,7 +38,7 @@ set(SOURCE_FILES
         src/objects/GameModel.cpp src/objects/GameModel.h
         src/objects/Path.cpp src/objects/Path.h
         src/objects/StartPath.cpp src/objects/StartPath.h
-)
+        src/objects/CannonBall.cpp src/objects/CannonBall.h)
 
 set(LIB_FILES
         ${OpenCV_LIBS}
