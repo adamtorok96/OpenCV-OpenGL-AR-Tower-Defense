@@ -22,6 +22,26 @@ void ArucoObjectMapper::addDrawable(GameModel *gameModel) {
     drawables.push_back(gameModel);
 }
 
+void ArucoObjectMapper::removeProcessable(GameObject * gameObject) {
+    for(auto i = 0; i < processables.size(); i++) {
+        if( processables[i] == gameObject ) {
+            processables.erase(processables.begin() + i);
+
+            break;
+        }
+    }
+}
+
+void ArucoObjectMapper::removeDrawable(GameModel *gameModel) {
+    for(auto i = 0; i < drawables.size(); i++) {
+        if( drawables[i] == gameModel ) {
+            drawables.erase(drawables.begin() + i);
+
+            break;
+        }
+    }
+}
+
 void ArucoObjectMapper::addPath(int id, Path * path) {
     addPositionable(id, path);
     addProcessable(path);
@@ -49,6 +69,24 @@ void ArucoObjectMapper::addMinion(Minion *minion) {
 void ArucoObjectMapper::addCannonBall(CannonBall *cannonBall) {
     addProcessable(cannonBall);
     addDrawable(cannonBall);
+}
+
+void ArucoObjectMapper::removeMinion(Minion *minion) {
+    removeProcessable(minion);
+    removeDrawable(minion);
+
+    for(unsigned int i = 0; i < minions.size(); i++) {
+        if( minions[i] == minion ) {
+            minions.erase(minions.begin() + i);
+
+            break;
+        }
+    }
+}
+
+void ArucoObjectMapper::removeCannonBall(CannonBall * cannonBall) {
+    removeProcessable(cannonBall);
+    removeDrawable(cannonBall);
 }
 
 void ArucoObjectMapper::load() {
@@ -138,4 +176,16 @@ Minion *ArucoObjectMapper::getClosestMinion(GameObject *gameObject) {
     }
 
     return closest;
+}
+
+void ArucoObjectMapper::destroyMinion(Minion *minion) {
+    removeMinion(minion);
+
+    delete minion;
+}
+
+void ArucoObjectMapper::destroyCannonBall(CannonBall *cannonBall) {
+    removeCannonBall(cannonBall);
+
+    delete cannonBall;
 }

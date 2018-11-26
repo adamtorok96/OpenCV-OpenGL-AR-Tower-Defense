@@ -15,8 +15,6 @@ void GameModel::draw() {
     glMatrixMode(GL_MODELVIEW);
     glLoadMatrixd(&modelViewMatrix.at<double>(0, 0));
 
-//    glTranslated(position[0], position[1], position[2]);
-
     glCallList(modelId);
 }
 
@@ -35,13 +33,11 @@ GLuint GameModel::load(const string & filename, Vec3d translate, Vec3d rotate, V
 
     bool hasNormals = !attrib.normals.empty();
     bool hasTextureCoordinates = !attrib.texcoords.empty();
-    bool hasColors = !attrib.colors.empty();
 
     tinyobj::real_t
             vx, vy, vz,
             nx, ny, nz,
-            tx, ty,
-            red, green, blue;
+            tx, ty;
 
     GLuint modelId = glGenLists(1);
 
@@ -86,14 +82,6 @@ GLuint GameModel::load(const string & filename, Vec3d translate, Vec3d rotate, V
 
                     glTexCoord2f(tx, ty);
                 }
-
-//                if( hasColors ) {
-//                    red = attrib.colors[3 * idx.vertex_index + 0];
-//                    green = attrib.colors[3 * idx.vertex_index + 1];
-//                    blue = attrib.colors[3 * idx.vertex_index + 2];
-//
-//                    glColor3f(red, green, blue);
-//                }
 
                 vx = attrib.vertices[3 * idx.vertex_index + 0];
                 vy = attrib.vertices[3 * idx.vertex_index + 1];

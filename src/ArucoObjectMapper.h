@@ -32,10 +32,16 @@ class ArucoObjectMapper {
     void addProcessable(GameObject * gameObject);
     void addDrawable(GameModel * gameModel);
 
+    void removeProcessable(GameObject * gameObject);
+    void removeDrawable(GameModel * gameModel);
+
     void addPath(int id, Path * path);
     void addTower(int id, Tower * tower);
     void addMinion(Minion * minion);
     void addCannonBall(CannonBall * cannonBall);
+
+    void removeMinion(Minion * minion);
+    void removeCannonBall(CannonBall * cannonBall);
 
     Minion * getClosestMinion(GameObject * gameObject);
 public:
@@ -54,6 +60,9 @@ public:
 
     void spawnMinion(Path * path);
     void spawnCannonBall(Tower * tower);
+
+    void destroyMinion(Minion * minion);
+    void destroyCannonBall(CannonBall * cannonBall);
 };
 
 

@@ -9,12 +9,15 @@ class Minion : public GameModel {
 
     Path * nextPath;
 
+    int life;
 public:
-    explicit Minion(GLuint id) : GameModel{id}, nextPath{nullptr} {}
+    explicit Minion(GLuint id) : GameModel{id}, nextPath{nullptr}, life{50 + rand() % 50} {}
 
     void process(unsigned int deltaTime) override;
 
     void setNextPath(Path * path);
+
+    int getLife();
 };
 
 

@@ -2,8 +2,6 @@
 
 void Minion::process(unsigned int deltaTime) {
     if( nextPath != nullptr ) {
-//        std::cout << "distance: " << getDistance(*nextPath) << endl;
-
         Vec3d dir = normalize(nextPath->getPosition() - getPosition());
 
         setPosition(getPosition() + dir * (speed * deltaTime));
@@ -17,4 +15,8 @@ void Minion::process(unsigned int deltaTime) {
 
 void Minion::setNextPath(Path *path) {
     nextPath = path;
+}
+
+int Minion::getLife() {
+    return life;
 }
