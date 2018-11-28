@@ -8,16 +8,18 @@
 #include "Minion.h"
 
 class CannonBall : public GameModel {
-    static constexpr double speed = 0.00003;
+    static constexpr double speed = 0.00005;
 
-    static GLuint ballModelId;
-    static GLuint createOrGetModelId();
+    static GLuint createModel();
 
     Vec3d direction;
 
-    long life;
+    long life, damage;
 public:
-    explicit CannonBall(const Vec3d & direction) : GameModel(createOrGetModelId()), direction{direction}, life{rand() % 100000 + 1000} {};
+    explicit CannonBall(const Vec3d & direction) : GameModel(createModel()),
+        direction{direction},
+        life{rand() % 100000 + 1000},
+        damage{rand() % 100 + 10} {};
 
     void process(unsigned int deltaTime) override;
 };

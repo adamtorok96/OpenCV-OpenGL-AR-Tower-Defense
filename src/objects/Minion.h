@@ -9,7 +9,7 @@ class Minion : public GameModel {
 
     Path * nextPath;
 
-    int life;
+    long life;
 public:
     explicit Minion(GLuint id) : GameModel{id}, nextPath{nullptr}, life{50 + rand() % 50} {}
 
@@ -17,7 +17,7 @@ public:
 
     void setNextPath(Path * path);
 
-    int getLife();
+    void hit(long damage);
 };
 
 

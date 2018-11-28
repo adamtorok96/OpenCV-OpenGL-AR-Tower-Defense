@@ -1,13 +1,8 @@
 #include "CannonBall.h"
 #include "../ArucoObjectMapper.h"
 
-GLuint CannonBall::ballModelId = 0;
-
-GLuint CannonBall::createOrGetModelId() {
-    if( ballModelId != 0 )
-        return ballModelId;
-
-    ballModelId = glGenLists(1);
+GLuint CannonBall::createModel() {
+    GLuint ballModelId = glGenLists(1);
 
     glNewList(ballModelId, GL_COMPILE);
 
@@ -15,7 +10,7 @@ GLuint CannonBall::createOrGetModelId() {
 
     glColor3f(0.0f, 0.0f, 1.0f);
 
-    glutSolidSphere(0.01, 20, 20);
+    glutSolidSphere(0.005, 20, 20);
 
     glEndList();
 
@@ -23,12 +18,27 @@ GLuint CannonBall::createOrGetModelId() {
 }
 
 void CannonBall::process(unsigned int deltaTime) {
+    if( destroyed )
+        return;
+
     life -= deltaTime;
 
+    ArucoObjectMapper * arucoObjectMapper = ArucoObjectMapper::getInstance();
+
     if( life < 0 ) {
-        // explode or something..
+        arucoObjectMapper->destroyCannonBall(this);
+
         return;
     }
 
     setPosition(getPosition() + direction * (speed * deltaTime));
+
+    Minion * minion = arucoObjectMapper->getClosestMinion(this);
+
+//    if( minion != nullptr )
+//        std::cout << "dist from m: " << minion->getDistance(*this) << std::endl;
+
+    if( minion != nullptr && minion->getDistance(*this) <=  0.005f ) {
+        minion->hit(damage);
+    }
 }

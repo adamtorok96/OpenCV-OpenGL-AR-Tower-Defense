@@ -12,7 +12,9 @@ void TowerDefense::draw(
         const vector<int> & ids,
         const vector <Vec3d> & rvecs,
         const vector <Vec3d> & tvecs) {
-    
+
+    arucoObjectMapper->beginDraw();
+
     for(auto i = 0; i < ids.size(); i++) {
         updateObjectPosition(ids[i], rvecs[i], tvecs[i]);
     }
@@ -24,6 +26,8 @@ void TowerDefense::draw(
     for(auto gameModel : arucoObjectMapper->getDrawables()) {
         gameModel->draw();
     }
+
+    arucoObjectMapper->endDraw();
 }
 
 void TowerDefense::updateObjectPosition(int id, const Vec3d &rvec, const Vec3d &tvec) {

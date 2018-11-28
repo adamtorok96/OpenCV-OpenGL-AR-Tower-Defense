@@ -19,7 +19,7 @@ public:
     static GLuint load(const string & filename, Vec3d translate, Vec3d rotate, Vec3d scale, Vec3d * color);
 
     explicit GameModel(GLuint modelId);
-    ~GameModel();
+//    ~GameModel();
 
     virtual void draw();
 };

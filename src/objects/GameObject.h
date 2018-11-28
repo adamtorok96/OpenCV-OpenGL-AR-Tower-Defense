@@ -14,18 +14,24 @@ protected:
     Mat modelViewMatrix;
     Vec3d rvec, tvec;
 
-    bool initialized;
+    bool initialized, destroyed;
 
 public:
-    GameObject() : initialized{false} {};
+    GameObject() : initialized{false}, destroyed{false} {};
+//    virtual ~GameObject();
 
-    void setPosition(const Vec3d & tvec);
-    void setPosition(const Vec3d & rvec, const Vec3d & tvec);
-    void setPosition(GameObject * gameObject);
+    GameObject & setPosition(const Vec3d & tvec);
+    GameObject & setPosition(const Vec3d & rvec, const Vec3d & tvec);
+    GameObject & setPosition(GameObject * gameObject);
+
+    GameObject & move(const Vec3d & dir);
 
     Vec3d getPosition() const;
 
     double getDistance(const GameObject & gameObject) const;
+
+    void destroy();
+    bool isDestroyed();
 
     virtual void process(unsigned int deltaTime) = 0;
 };

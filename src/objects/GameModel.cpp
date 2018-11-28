@@ -4,12 +4,12 @@ GameModel::GameModel(GLuint modelId) {
     this->modelId = modelId;
 }
 
-GameModel::~GameModel() {
-    glDeleteLists(modelId, 1);
-}
+//GameModel::~GameModel() {
+//    glDeleteLists(modelId, 1);
+//}
 
 void GameModel::draw() {
-    if( !initialized )
+    if( !initialized || destroyed )
         return;
 
     glMatrixMode(GL_MODELVIEW);

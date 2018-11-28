@@ -1,26 +1,38 @@
 #include "GameObject.h"
 
-void GameObject::setPosition(const Vec3d & tvec){
+GameObject & GameObject::setPosition(const Vec3d & tvec){
     this->tvec = tvec;
     this->modelViewMatrix = Detector::getInstance()->getModelViewMatrix(rvec, tvec);
+
+    return *this;
 }
 
-void GameObject::setPosition(const Vec3d &rvec, const Vec3d &tvec) {
+GameObject & GameObject::setPosition(const Vec3d &rvec, const Vec3d &tvec) {
     this->rvec = rvec;
     this->tvec = tvec;
     this->modelViewMatrix = Detector::getInstance()->getModelViewMatrix(rvec, tvec);
 
     if( !initialized )
         initialized = true;
+
+    return *this;
 }
 
-void GameObject::setPosition(GameObject * gameObject) {
+GameObject & GameObject::setPosition(GameObject * gameObject) {
     rvec = gameObject->rvec;
     tvec = gameObject->tvec;
     modelViewMatrix = gameObject->modelViewMatrix;
 
     if( !initialized )
         initialized = true;
+
+    return *this;
+}
+
+GameObject &GameObject::move(const Vec3d & dir) {
+    tvec += dir;
+
+    return *this;
 }
 
 Vec3d GameObject::getPosition() const {
@@ -35,4 +47,12 @@ double GameObject::getDistance(const GameObject &gameObject) const {
             vec[1] * vec[1] +
             vec[2] * vec[2]
     );
+}
+
+bool GameObject::isDestroyed() {
+    return destroyed;
+}
+
+void GameObject::destroy() {
+    destroyed = true;
 }

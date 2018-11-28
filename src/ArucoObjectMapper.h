@@ -27,6 +27,11 @@ class ArucoObjectMapper {
 
     vector<Path *> pathes;
     vector<Minion *> minions;
+    vector<CannonBall *> cannonBalls;
+
+    bool shouldRemove;
+
+    ArucoObjectMapper() : shouldRemove{false} {}
 
     void addPositionable(int id, GameObject * gameObject);
     void addProcessable(GameObject * gameObject);
@@ -42,17 +47,18 @@ class ArucoObjectMapper {
 
     void removeMinion(Minion * minion);
     void removeCannonBall(CannonBall * cannonBall);
-
-    Minion * getClosestMinion(GameObject * gameObject);
 public:
     static ArucoObjectMapper * getInstance();
     static void load();
 
     ~ArucoObjectMapper();
 
+    void beginDraw();
+    void endDraw();
+
     void updatePositionIfExists(int id, const Vec3d & rvec, const Vec3d & tvec);
 
-    vector<GameObject*> & getProcessables();
+    vector<GameObject*> getProcessables();
     vector<GameModel*> & getDrawables();
 
     vector<Path*> & getPathes();
@@ -63,6 +69,8 @@ public:
 
     void destroyMinion(Minion * minion);
     void destroyCannonBall(CannonBall * cannonBall);
+
+    Minion * getClosestMinion(GameObject * gameObject);
 };
 
 

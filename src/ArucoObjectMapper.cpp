@@ -1,3 +1,4 @@
+#include <set>
 #include "ArucoObjectMapper.h"
 
 ArucoObjectMapper * ArucoObjectMapper::instance;
@@ -69,13 +70,15 @@ void ArucoObjectMapper::addMinion(Minion *minion) {
 void ArucoObjectMapper::addCannonBall(CannonBall *cannonBall) {
     addProcessable(cannonBall);
     addDrawable(cannonBall);
+
+    cannonBalls.push_back(cannonBall);
 }
 
 void ArucoObjectMapper::removeMinion(Minion *minion) {
     removeProcessable(minion);
     removeDrawable(minion);
 
-    for(unsigned int i = 0; i < minions.size(); i++) {
+    for(auto i = 0; i < minions.size(); i++) {
         if( minions[i] == minion ) {
             minions.erase(minions.begin() + i);
 
@@ -87,6 +90,14 @@ void ArucoObjectMapper::removeMinion(Minion *minion) {
 void ArucoObjectMapper::removeCannonBall(CannonBall * cannonBall) {
     removeProcessable(cannonBall);
     removeDrawable(cannonBall);
+
+    for(auto i = 0; i < cannonBalls.size(); i++) {
+        if( cannonBalls[i] == cannonBall ) {
+            cannonBalls.erase(cannonBalls.begin() + i);
+
+            break;
+        }
+    }
 }
 
 void ArucoObjectMapper::load() {
@@ -109,7 +120,7 @@ void ArucoObjectMapper::load() {
     }
 }
 
-vector<GameObject *> &ArucoObjectMapper::getProcessables() {
+vector<GameObject *> ArucoObjectMapper::getProcessables() {
     return processables;
 }
 
@@ -144,7 +155,7 @@ void ArucoObjectMapper::spawnCannonBall(Tower * tower) {
 
     auto cannonBall = new CannonBall(dir);
 
-    cannonBall->setPosition(tower); // ->getPosition() + Vec3d(0, 0, 0.5f)
+    cannonBall->setPosition(tower);
 
     addCannonBall(cannonBall);
 }
@@ -179,13 +190,43 @@ Minion *ArucoObjectMapper::getClosestMinion(GameObject *gameObject) {
 }
 
 void ArucoObjectMapper::destroyMinion(Minion *minion) {
+    minion->destroy();
     removeMinion(minion);
 
-    delete minion;
+    shouldRemove = true;
 }
 
 void ArucoObjectMapper::destroyCannonBall(CannonBall *cannonBall) {
-    removeCannonBall(cannonBall);
+   cannonBall->destroy();
+   removeCannonBall(cannonBall);
 
-    delete cannonBall;
+   shouldRemove = true;
+}
+
+void ArucoObjectMapper::beginDraw() {
+    shouldRemove = false;
+}
+
+void ArucoObjectMapper::endDraw() {
+    if( shouldRemove ) {
+        std::set<GameObject*> removeQueue;
+
+        for(auto minion : minions) {
+            if( minion->isDestroyed() ) {
+                removeQueue.insert(minion);
+            }
+        }
+
+        for(auto cannonBall : cannonBalls) {
+            if( cannonBall->isDestroyed() ) {
+                removeQueue.insert(cannonBall);
+            }
+        }
+
+        for(auto gameObject : removeQueue) {
+            delete gameObject;
+        }
+
+        shouldRemove = false;
+    }
 }
